@@ -1,1 +1,4 @@
 test/*
+ExcelFiles/*
+ISBN_Processed/*
+ISBN_Incoming/*
