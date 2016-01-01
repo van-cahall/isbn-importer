@@ -1,4 +1,4 @@
-# =HYPERLINK("http://www.amazon.com/gp/search/ref=sr_adv_b?search-alias=stripbooks&unfiltered=1&field-isbn="&A2&"&sort=
+# =HYPERLINK("http://www.amazon.com/gp/search/ref=sr_adv_b?search-alias=stripbooks&unfiltered=1&field-isbn="&A5&"&sort=relevanceexprank","Amaxon Link")
 from openpyxl import load_workbook
 import time, sys, webbrowser, os
 
@@ -6,6 +6,8 @@ folder_ISBN_Incoming = "ISBN_Incoming"
 folder_ISBN_Processed= "ISBN_Processed"
 folder_ExcelFiles = "ExcelFiles"
 
+formula_prefix = '=HYPERLINK("http://www.amazon.com/gp/search/ref=sr_adv_b?search-alias=stripbooks&unfiltered=1&field-isbn="'
+formula_suffix = '&"&sort=relevanceexprank"'
 # process each file in the "Incoming" folder
 curdir = os.getcwd()
 for root, dirs, files in os.walk(curdir + '\\' + folder_ISBN_Incoming, topdown=False):
@@ -22,11 +24,11 @@ for root, dirs, files in os.walk(curdir + '\\' + folder_ISBN_Incoming, topdown=F
                 print('Processing ISBN: ' + isbn)
                 ws['A' + str(lineNum)] = isbn
                 amazon_booklist_url = "http://www.amazon.com/gp/search/ref=sr_adv_b/?search-alias=stripbooks&unfiltered=1&field-isbn=" + isbn + "&sort=relevanceexprank"
-                formula = '=HYPERLINK("' + amazon_booklist_url + '","Amazon Link")'	
+                formula = formula_prefix + '&A' + str(lineNum) + formula_suffix + ',"Amazon Link")'	
                 ws['B' + str(lineNum)] = formula
-                #print(formula)
-                # Open a browser tab for each book
-                #webbrowser.open(amazon_booklist_url)
+                print(formula)
+                # Open a browser tab for each book (disabled for now per mom's request)
+                # webbrowser.open(amazon_booklist_url)
                 
                 lineNum += 1
         
